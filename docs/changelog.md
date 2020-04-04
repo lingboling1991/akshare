@@ -1189,4 +1189,18 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.56: add: index_vix
 
 0.4.57: fix: covid-19; desc: delete pic show
+
+0.4.58: add: qhkc api
+
+0.4.59: add: jyfm_tools
+
+0.4.60: fix: covid_19_dxy and cot.py
+
+0.4.61: fix: cot.py dict's keys use strip
+
+0.4.62: fix: add PG into cons.py map_dict
+
+0.4.63: add: energy_oil to add energy_oil_hist and energy_oil_detail
+
+0.4.64: add: futures_em_spot_stock
 ```

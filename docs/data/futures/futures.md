@@ -3095,11 +3095,11 @@ print(jyfm_tools_position_fund_deal_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
+| 名称   | 类型 | 必选 | 描述         |
 | -------- | ---- | ---- | --- |
 | trade_date | str | Y | trade_date="2020-03-02"; |
 | seat | str | Y | seat="永安期货"; broker |
-| indicator | str | Y | indicator="long"; choice of "long": 多头持仓结构, "short": 空头持仓结构, "pure": 净持仓结构 |
+| indicator | str | Y | indicator="持仓变化"; choice of 持仓变化，净持仓分布，总持仓分布; 持仓变化总，净持仓分布总，总持仓分布总 |
 | headers | dict  | Y    |   headers=headers|
 
 输出参数
@@ -3114,7 +3114,7 @@ print(jyfm_tools_position_fund_deal_df)
 import akshare as ak
 headers = ak.jyfm_login(account="此处输入您在交易法门注册的帐号", password="此处输入您在交易法门注册的帐号的密码")
 # 会弹出验证码图片, 在 IDE 或者 Console 处输入相应的验证码后, 按 Enter 键继续运行
-jyfm_tools_position_structure_df = ak.jyfm_tools_position_structure(trade_date="2020-03-02", seat="永安期货", indicator="long", headers=headers)
+jyfm_tools_position_structure_df = ak.jyfm_tools_position_structure(trade_date="2020-03-02", seat="永安期货", indicator="持仓变化", headers=headers)
 print(jyfm_tools_position_structure_df)
 ```
 
@@ -3133,6 +3133,111 @@ print(jyfm_tools_position_structure_df)
 17  12400925  jm2005  ...              2106         213
 18  12400267   p2005  ...             -3121         209
 19  12398951   v2009  ...              2936         201
+```
+
+###### 持仓成本
+
+接口: jyfm_tools_position_seat_cost
+
+目标地址: https://www.jiaoyifamen.com/tools
+
+描述: 获取交易法门-工具-席位分析-持仓成本
+
+限量: 单次获取指定交易日指定席位的持仓成本
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述         |
+| -------- | ---- | ---- | --- |
+| seat | str | Y | seat="永安期货"; |
+| symbol | str | Y | symbol="RB"; |
+| code | str | Y | code="10"; 合约的月份 |
+| headers | dict  | Y    | headers=headers|
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| 返回所有字段          | -   | -        | -     |
+
+接口示例
+
+```python
+import akshare as ak
+headers = ak.jyfm_login(account="此处输入您在交易法门注册的帐号", password="此处输入您在交易法门注册的帐号的密码")
+# 会弹出验证码图片, 在 IDE 或者 Console 处输入相应的验证码后, 按 Enter 键继续运行
+jyfm_tools_position_seat_cost_df = ak.jyfm_tools_position_seat_cost(seat="永安期货", symbol="RB", code="10", headers=headers)
+print(jyfm_tools_position_seat_cost_df)
+```
+
+数据示例
+
+```
+           day instrument  openPrice  ...  longCost  shortCost  neatCost
+0   2020-04-01     rb2010     3245.0  ...    3325.0     3275.0    3198.0
+1   2020-03-31     rb2010     3253.0  ...    3342.0     3333.0    3265.0
+2   2020-03-30     rb2010     3306.0  ...    3345.0     3341.0    3286.0
+3   2020-03-27     rb2010     3351.0  ...    3347.0     3379.0    3246.0
+4   2020-03-26     rb2010     3360.0  ...    3347.0     3384.0    3256.0
+..         ...        ...        ...  ...       ...        ...       ...
+80  2019-12-02     rb2010     3276.0  ...    3229.0     3237.0    3285.0
+81  2019-11-29     rb2010     3256.0  ...    3225.0     3225.0    3240.0
+82  2019-11-28     rb2010     3215.0  ...    3219.0     3227.0    3287.0
+83  2019-11-27     rb2010     3211.0  ...    3221.0     3225.0    3211.0
+84  2019-11-26     rb2010     3245.0  ...    3222.0     3222.0    3222.0
+```
+
+###### 建仓过程
+
+接口: jyfm_tools_position_interest_process
+
+目标地址: https://www.jiaoyifamen.com/tools
+
+描述: 获取交易法门-工具-席位分析-建仓过程
+
+限量: 单次获取指定交易日指定席位的建仓过程
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述         |
+| -------- | ---- | ---- | --- |
+| seat | str | Y | seat="永安期货"; |
+| symbol | str | Y | symbol="RB"; |
+| instrument | str | Y | instrument="rb2005"; 合约 |
+| indicator | str | Y | indicator="建仓过程"; choice of "建仓过程", "净持仓量", "盈亏图" |
+| headers | dict  | Y    | headers=headers|
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| 返回所有字段          | -   | -        | -     |
+
+接口示例
+
+```python
+import akshare as ak
+headers = ak.jyfm_login(account="此处输入您在交易法门注册的帐号", password="此处输入您在交易法门注册的帐号的密码")
+# 会弹出验证码图片, 在 IDE 或者 Console 处输入相应的验证码后, 按 Enter 键继续运行
+jyfm_tools_position_interest_process_df = ak.jyfm_tools_position_interest_process(seat="永安期货", symbol="RB", instrument="rb2005", indicator="建仓过程", headers=headers)
+print(jyfm_tools_position_interest_process_df)
+```
+
+数据示例
+
+```
+              open   close     low    high
+2019-05-31  3370.0  3352.0  3351.0  3381.0
+2019-06-03  3350.0  3328.0  3324.0  3368.0
+2019-06-04  3330.0  3360.0  3322.0  3364.0
+2019-06-05  3365.0  3357.0  3346.0  3370.0
+2019-06-06  3357.0  3351.0  3313.0  3357.0
+            ...     ...     ...     ...
+2020-03-26  3460.0  3455.0  3443.0  3475.0
+2020-03-27  3457.0  3459.0  3440.0  3471.0
+2020-03-30  3441.0  3406.0  3390.0  3442.0
+2020-03-31  3414.0  3406.0  3384.0  3428.0
+2020-04-01  3410.0  3352.0  3344.0  3414.0
 ```
 
 ##### 仓单分析
@@ -4752,6 +4857,62 @@ print(jyfm_tools_futures_basis_rule_df)
 7           NaN           NaN           NaN
 ```
 
+##### 行情分析
+
+###### 行情数据
+
+接口: jyfm_tools_futures_market
+
+目标地址: https://www.jiaoyifamen.com/tools
+
+描述: 获取行情数据(日, 周, 月)
+
+限量: 单次指定日期之间的行情数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| symbol | str  | Y    |   symbol="RB"|
+| code | str  | Y    |   code="10"|
+| start_date | str  | Y    |   start_date="2020-01-02"|
+| end_date | str  | Y    |   end_date="2020-04-02"|
+| option | str  | Y    |   option="daily"|
+| headers | dict  | Y    |   headers=headers|
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| -          | -   | -        | 返回所有字段     |
+
+接口示例
+
+```python
+import akshare as ak
+headers = ak.jyfm_login(account="此处输入您在交易法门注册的帐号", password="此处输入您在交易法门注册的帐号的密码")
+# 会弹出验证码图片, 在 IDE 或者 Console 处输入相应的验证码后, 按 Enter 键继续运行
+jyfm_tools_futures_market_df = ak.jyfm_tools_futures_market(symbol="RB", code="10", start_date="2020-01-02", end_date="2020-04-02", option="daily", headers=headers)
+print(jyfm_tools_futures_market_df)
+```
+
+数据示例
+
+```
+         id instrument  ...     fundFlow  instVariety
+0    975632     rb2010  ...  708355255.0          306
+1    976242     rb2010  ...    9116612.0          306
+2    976852     rb2010  ...   32738598.0          306
+3    977462     rb2010  ...   -9001822.0          306
+4    978072     rb2010  ...    4223902.0          306
+..      ...        ...  ...          ...          ...
+54  1009100     rb2010  ...  129068996.0          306
+55  1009713     rb2010  ...  133626921.0          306
+56  1010332     rb2010  ...  422148369.0          306
+57  1010963     rb2010  ...  187018660.0          306
+58  1011583     rb2010  ...  476224078.0          306
+```
+
 ##### 交易规则
 
 ###### 仓单有效期
@@ -5565,4 +5726,56 @@ print(jyfm_data_sugar_df)
 9     2.34    0.00   35.97    47.5    7.33  2016/2017
 10    3.50    0.00   26.60    46.1   11.41  2017/2018
 11     NaN     NaN     NaN     NaN     NaN  2018/2019
+```
+
+### 现货与股票
+
+接口: futures_spot_stock
+
+目标地址: http://data.eastmoney.com/ifdata/xhgp.html
+
+描述: 获取东方财富网-数据中心-现货与股票
+
+限量: 单次返回指定 **indicator** 的数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="能源"; choice of {'能源', '化工', '塑料', '纺织', '有色', '钢铁', '建材', '农副'} |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 商品名称      | str   | Y        |   |
+| 近5月      | float   | Y        |   |
+| 近4月      | float   | Y        |   |
+| 近3月      | float   | Y        |   |
+| 近2月      | str   | Y        |   |
+| 近1月      | str   | Y        |   |
+| 最新价      | str   | Y        |   |
+| 近半年涨跌幅      | str   | Y        |   |
+| 生产商      | str   | Y        |   |
+| 下游用户      | str   | Y        |   |
+						
+接口示例
+
+```python
+import akshare as ak
+futures_spot_stock_df = ak.futures_spot_stock(indicator="能源")
+print(futures_spot_stock_df)
+```
+
+数据示例
+
+```
+  商品名称    11-30    12-31    01-31    02-29    03-31     最新价格   近半年涨跌幅                                                生产商                                               下游用户
+0  炼焦煤  1458.33  1471.67  1478.33  1490.00  1455.00  1455.00   -0.23%  中国神华, 永泰能源, 靖远煤电, 平庄能源, 冀中能源, 西山煤电, 露天煤业, 郑州煤电...                       美锦能源, 长春燃气, *ST安泰, 山西焦化, 宝泰隆
+1  动力煤   558.25   560.25   562.00   573.75   538.75   532.75   -4.57%  靖远煤电, 新大洲A, 平庄能源, 神火股份, 冀中能源, 西山煤电, 露天煤业, 郑州煤电...                                                   
+2   焦炭  1666.67  1766.67  1766.67  1716.67  1563.33  1563.33   -6.20%  国际实业, 美锦能源, *ST三维, 西山煤电, 太化股份, 长春燃气, *ST安泰, 山煤...  大冶特钢, 鞍钢股份, *ST华菱, 首钢股份, 沙钢股份, 三钢闽光, 武钢股份, 包钢股...
+3   沥青  3358.00  3384.00  3420.00  3420.00  3250.00  2725.00  -18.85%                                   国创高新, 宝利国际, 上海石化                                                   
+4  燃料油  4550.00  4578.00  5030.00  4816.00  3676.00  3670.00  -19.34%                                         中国石化, 中国石油                                                   
+5   甲醇  2145.00  2055.00  2242.50  2022.50  1607.50  1612.50  -24.83%  远兴能源, 华昌化工, 天茂集团, 岳阳兴长, *ST柳化, 兰花科创, 山西焦化, 泸天化...                                                   
+6  液化气  3876.67  4583.33  4383.33  3700.00  2706.67  2673.33  -31.04%  茂化实华, 沈阳化工, 岳阳兴长, 东华能源, 齐翔腾达, 中国石化, 长春燃气, 上海石化... 
 ```

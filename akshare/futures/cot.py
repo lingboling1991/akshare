@@ -274,7 +274,7 @@ def _czce_df_read(url, skip_rows, encoding='utf-8', header=0):
     return data
 
 
-def get_czce_rank_table(date=None, vars_list=cons.contract_symbols):
+def get_czce_rank_table(date="20081015", vars_list=cons.contract_symbols):
     """
     郑州商品交易所前 20 会员持仓排名数据明细
     注：该交易所既公布了品种排名, 也公布了标的排名
@@ -313,11 +313,14 @@ def get_czce_rank_table(date=None, vars_list=cons.contract_symbols):
         symbols = []
         for link in soup.find_all('b'):
             strings = (str(link).split(' '))
+
             if len(strings) > 5:
                 try:
                     symbol = chinese_to_english(strings[4])
                 except:
                     symbol = strings[4]
+                if symbol == "SR905日期:":
+                    symbol = "SR905"
                 symbols.append(symbol)
         big_dict = {}
         for i in range(len(symbols)):
@@ -398,7 +401,7 @@ def get_czce_rank_table(date=None, vars_list=cons.contract_symbols):
             table_cut = table_cut.loc[[x for x in table_cut.index if x in [str(i) for i in range(21)]], :]
 
             table_cut = _table_cut_cal(table_cut, symbol)
-            big_dict[symbol] = table_cut.reset_index(drop=True)
+            big_dict[symbol.strip()] = table_cut.reset_index(drop=True)
 
     return big_dict
 
@@ -547,9 +550,9 @@ def _table_cut_cal(table_cut, symbol):
 
 
 if __name__ == '__main__':
-    get_czce_rank_table_first_df = get_czce_rank_table(date='20061227')
+    get_czce_rank_table_first_df = get_czce_rank_table(date='20081015', vars_list=["SR"])
     print(get_czce_rank_table_first_df)
-    get_czce_rank_table_second_df = get_czce_rank_table(date='20171227')
+    get_czce_rank_table_second_df = get_czce_rank_table(date='20151112')
     print(get_czce_rank_table_second_df)
     get_czce_rank_table_third_df = get_czce_rank_table(date='20191227')
     print(get_czce_rank_table_third_df)
@@ -561,7 +564,9 @@ if __name__ == '__main__':
     print(get_shfe_rank_table_first_df)
     get_shfe_rank_table_second_df = get_dce_rank_table(date='20171227')
     print(get_shfe_rank_table_second_df)
-    get_shfe_rank_table_third_df = get_dce_rank_table(date='20191227')
+    get_shfe_rank_table_third_df = get_dce_rank_table(date='20180718')
     print(get_shfe_rank_table_third_df)
     get_rank_sum_daily_df = get_rank_sum_daily(start_day="20200313", end_day="20200317")
     print(get_rank_sum_daily_df)
+
+
